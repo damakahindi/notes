@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 import { Grid, Row } from 'react-bootstrap';
 import Note from './Note.jsx';
 
-const NotesList = ({ notes }) => (
+const NotesList = ({ notes, shareTwitter }) => (
   <Grid>
     <Row>
       {
         notes.length ?
           notes.map(note => (
-            <Note key={note.id} {...note} />
+            <Note key={note.id} {...note} shareTwitter={shareTwitter} />
           )) : <h1> No Notes Added </h1>
       }
     </Row>
@@ -24,5 +24,6 @@ NotesList.propTypes = {
       description: PropTypes.string.isRequired,
     }).isRequired,
   ).isRequired,
+  shareTwitter: PropTypes.func.isRequired,
 };
 export default NotesList;

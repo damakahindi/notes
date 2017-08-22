@@ -7,6 +7,7 @@ export default (state = [], action) => {
           id: action.id,
           name: action.name,
           description: action.description,
+          isSharing: action.isSharing,
         },
       ];
     case 'DELETE_NOTE':

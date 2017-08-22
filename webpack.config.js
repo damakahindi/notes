@@ -1,6 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
 
 const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
   template: './src/index.html',
@@ -20,8 +21,28 @@ module.exports = {
       { test: /\.css$/, loader: ExtractTextPlugin.extract('style-loader', 'css-loader') },
     ],
   },
+  node: {
+    fs: 'empty',
+  },
+  devServer: {
+    contentBase: './dist',
+    publicPath: '/',
+    port: 3000,
+    hot: true,
+    stats: 'minimal',
+    historyApiFallback: true,
+
+    proxy: {
+      '/api/**': {
+        target: 'https://api.twitter.com/1.1/', // put twitter url here
+        changeOrigin: true,
+        secure: false,
+        pathRewrite: { '^/api/': '' },
+      },
+    } },
   plugins: [
     new ExtractTextPlugin('[name].css'),
     HtmlWebpackPluginConfig,
+    new Dotenv(),
   ],
 };

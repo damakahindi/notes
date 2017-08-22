@@ -1,5 +1,6 @@
 import { createStore, applyMiddleware } from 'redux';
 import { syncHistoryWithStore } from 'react-router-redux';
+import thunkMiddleware from 'redux-thunk';
 import { hashHistory } from 'react-router';
 import { createLogger } from 'redux-logger';
 import note from './reducers/index';
@@ -9,8 +10,8 @@ const store = createStore(
   note,
   applyMiddleware(
     loggerMiddleware,
-  ),
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+    thunkMiddleware,
+  ));
 
 export const history = syncHistoryWithStore(hashHistory, store);
 
